@@ -10,4 +10,18 @@ After watching Avengers, Spider-Man and some other Sci-Fi movies, I decided to m
 
 ## Hardware Specifications 
 
-* 
+* __Processing Unit__: NodeMCU ESP8266 (Arduino Compatible)
+* __Display__: 128x32 Blue OLED Screen
+
+## Software
+
+This version of operating system is written in Arduino, which is a C++ dialect. The list here will be updated with changes made to the OS.
+
+* __0.0.1__: This version connects to WiFi network (needs to be hard-coded inside the OS code by you), connects to an API (which is quiet temporary) and shows date and time. Time zone and other stuff most be changed in the API (there will be an endpoint)
+
+## To-Do 
+
+- [ ] Making a controller application for the whole thing.
+- [ ] Adding more features like weather.
+- [ ] Adding notifications or health status (needs some R&D).
+- [ ] Adding ability to edit credentials using a desktop app. 
