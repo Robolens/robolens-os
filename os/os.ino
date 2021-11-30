@@ -9,7 +9,7 @@
 #define OLED_RST 16
 
 const char* ssid; //YOUR SSID;
-const char* password //YOUR WiFi Password;
+const char* password; //YOUR WiFi Password;
 
 SSD1306Wire display(0x3c, SDA, SCL, GEOMETRY_128_32);
 
@@ -19,15 +19,13 @@ void setup() {
   pinMode(OLED_RST, OUTPUT);
   digitalWrite(OLED_RST, HIGH);
   display.init();
-  display.flipScreenVertically();
-  //display.clear();
   display.setFont(ArialMT_Plain_10);
   display.drawString(1, 1, "Robolens OS 0.0.1");
   display.display();
   delay(1000);
   display.clear();
   display.display();
-  display.drawString(1, 1, "Connecting to the wifi network...");
+  display.drawString(1, 1, "Connecting to the \nwifi network...");
   display.display();
   delay(2500);
   WiFi.begin(ssid, password);
@@ -35,7 +33,7 @@ void setup() {
   display.display();
   while (WiFi.status() != WL_CONNECTED) {
 
-    display.drawString(1, 1, "Connecting to " + String(ssid));
+    display.drawString(1, 1, "Connecting to \n" + String(ssid));
     display.display();
     delay(500);
 
