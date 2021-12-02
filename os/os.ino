@@ -14,6 +14,7 @@ const char* password; //YOUR WiFi Password;
 SSD1306Wire display(0x3c, SDA, SCL, GEOMETRY_128_32);
 
 String dateTimeHost = "https://dt.kootahkon.ir/datetime"; 
+String smileHost = "https://dt.kootahkon.ir/smile";
 
 void setup() {
   pinMode(OLED_RST, OUTPUT);
@@ -33,7 +34,7 @@ void setup() {
   display.display();
   while (WiFi.status() != WL_CONNECTED) {
 
-    display.drawString(1, 1, "Connecting to \n" + String(ssid));
+    display.drawString(1, 1, "Connecting to: " + String(ssid));
     display.display();
     delay(500);
 
@@ -76,6 +77,34 @@ void loop() {
 
     http.end();
   }
-  delay(60000);
+  delay(20000);
   display.clear();
+  display.display();
+  delay(1000);
+  if (WiFi.status() == WL_CONNECTED) {
+
+    WiFiClientSecure client;
+    HTTPClient http;
+
+    client.setInsecure();
+    client.connect(smileHost, 443);
+    
+    http.begin(client, smileHost); //API to be changed
+    
+    int httpCode = http.GET();
+
+    if (httpCode > 0) {
+      String payload = http.getString();
+      display.drawString(1, 1, payload);
+      display.display();
+    } else {
+      display.drawString(1, 1, "Error code: " + String(httpCode));
+      display.display();
+    }
+
+    http.end();
+  }
+  delay(2000);
+  display.clear();
+
 }
